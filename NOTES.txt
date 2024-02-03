@@ -5,9 +5,186 @@
 ///////////////////////////////////////////////////////////////////////////////
 
  SECTIONS:
-   #1: ...
+   #1: COURSE OVERVIEW
+   #?: OTHER NOTES
+   #?: LINKS AND RESOURCES
+
+///////////////////////////////////////////////////////////////////////////////
+// #1 | COURSE OVERVIEW:
+///////////////////////////////////////////////////////////////////////////////
+
+   [X] #1: Introduction and Motivations
+   [X] #2: Trigonometry Review
+   [-] #3: 2D Map and Player Movement
+   [-] #4: Ray Casting
+   [-] #5: Rendering Walls
+   [-] #6: Starting our C Project
+   [-] #7: Creating a Game Loop
+   [-] #8: Map and Player Movement
+   [-] #9: Casting Rays in our C Project
+   [-] #10: Color Buffer
+   [-] #11: Wall Projection
+   [-] #12: Wall Textures
+   [-] #13: Fixing the Angle Increment Distortion
+   [-] #14: Refactoring Project Files
+   [-] #15: Rendering Lines
+   [-] #16: Refactoring Our Code
+   [-] #17: Sprites
+   [-] #18: Conclusion & Moving Forward
+  
+   [X] COMPLETED / [-] NOT COMPLETED
+
+ - Course roadmap:
+    - Basic intro to ray-casting techniques
+    - Trigonometry review
+    - Understand the math behind casting rays
+    - Coding player movement and map grid
+    - Coding the 2D view of our ray-casting
+    - Coding the 3D projection view
+    - Simple JavaScript prototype
+    - Final implementation in C with textures
 
 
 ///////////////////////////////////////////////////////////////////////////////
-// #1 | ...
+// #? | OTHER NOTES
 ///////////////////////////////////////////////////////////////////////////////
+ 
+ - The raycasting algorithm used in this project will try to be faithful
+   to the technique used by the Wolfenstein3D source code.
+
+ - Raycasting limitations:
+    - Walls are always perpendicular (90 degree angle) with the floor.
+    - The floor is always flat.
+    - Walls are made of cubes that have the same size (square grid map).
+
+ - Ray-casting vs Ray-tracing:
+    Ray-casting:
+    - Rays are cast and traced in groups, column by column.
+    - In a 320x200 display resolution a ray-caster traces 320 rays
+    - Pro: Very fast
+    - Con: The resulting image is not very realistic
+    - A viable option for real-time rendering
+
+    Ray-tracing:
+    - Each ray is traced separately, so each point (usually a pixel) is traced
+      by one single ray.
+    - In a 320x200 display resolution a ray-tracer needs to trace 64.000 rays
+    - Con: Much slower
+    - Pro: The resulting image is extremely realistic
+    - Not a viable option for real-time rendering
+
+ - Degrees and Radians:
+    - Degrees are a classic thing used between humans
+    - Degrees are fine for humans, but don't work that well with computers
+    - 1 radian = arc length equal to radius
+    - 3.14 (π) rad is half a circle (180°)
+    - Degrees go from 0° to 360°
+    - Radians go from 0 to 2π
+    - convert degree to radians: rad = deg * (pi / 180)
+    - convert radians to degree: deg = rad * (180 / pi)
+
+ - Trigonometry is the study of trigons (that's triangles):
+
+   Sine, Cosine and Tangent:                              /|   
+    sin(α) = (opposite / hypotenuse)        HYPOTENUSE  /  | 
+    cos(α) = (adjacent / hypotenuse)              \   /    | 
+    tan(α) = (opposite / adjacent)                  /      | OPPOSITE
+                                                  /        |/
+        s = o/h                                 /          |
+         c = a/h                              /            |
+          t = o/a                           /α_____________|
+                                             |         \
+        "SOH-CAH-TOA"                        |       ADJACENT
+                                        ANGLE "ALPHA"
+   
+
+   Example use of trigonometry:                  #____160____#____160____#
+                                                 |   PROJECTION PLANE    |
+    Calculating the distance from the player     #-----------------------#
+    to the projection plane                       \          |          /
+                                                   \         |         /
+    Projection plane: 320x200                       \        |        /
+    Field of view (FOV): 60°                         \       |       /
+                                                      \      |      /
+    tan(30°) = (160 / adjecent)                        \     |     /
+    adjecent = (160 / tan(30°)) = 277.39                \    |    /
+                                                         \30°|30°/
+    The distance fomr the player to                       \  |  /
+    the projection plane is 277.29                         \ | /
+                                                            \|/
+
+
+   
+   Another example use of trigonometry:                             B         
+                                                                  / (x,y)
+    Calculate the distance between two points.                  /   |
+    There are two ways of finding the distance:               /     |
+     - If we have the angle (using same method as before)   /       |
+     - Or if we have the X and Y coords                   /         |
+       of both points:                                  /           |
+                                                      /             |
+       B(y)-A(y) = opposite                         /               |
+       B(x)-A(x) = adjacent                       A ----------------+
+       hypotenuse² = opposite² + adjacent²       (x,y)
+
+      distanceAB = sqrt((B.x - A.x) * (B.x - A.x) + (B.y - A.y) * (B.y - A.y))
+
+ - JS prototype:
+    - We'll use JavaScript to make a simple prototype that runs in the
+      web browser.
+    - We'll use the p5.js library for drawing geometry
+        
+        raycasting (folder)
+           |
+           |- index.html    - the main html
+           |
+           |- styles.css    - simple stylesheet
+           |
+           |- p5.js         - library we'll use for drawing geometry
+           |
+           |- raycast.js    - the js raycasting engine prototype
+
+ - Defining the 2D Map Grid:
+    - Matrix/2D array of boolean values (wall (true) or not wall (false))
+    - We need to define the tile size, e.g. 32 (map of 32x32x32 cubes)
+    
+    Example JS code for defining a map:
+     const TILE_SIZE = 32;
+     const MAP_NUM_ROWS = 11;
+     const MAP_NUM_COLS = 15;
+
+     class Map {
+         walls = [
+             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+             [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+             [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+             [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+             [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+             [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+             [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+             [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+             [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+             [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+         ];
+     }
+ 
+ - Player movement:
+    Example JS code for defining the player:
+      class Player {
+        x;
+        y;
+        radius;
+        turnDirection = 0;             // -1 if left, +1 if right
+        walkDirection = 0;             // -1 if back, +1 if front
+        rotationAngle = Math.PI / 2;
+        moveSpeed = 3.0;
+        rotationSpeed = 3 * (Math.PI / 180);
+      }
+
+
+///////////////////////////////////////////////////////////////////////////////
+// #? | LINKS AND RESOURSES
+///////////////////////////////////////////////////////////////////////////////
+
+ - Peter Shirley, Ray Tracing in One Weekend

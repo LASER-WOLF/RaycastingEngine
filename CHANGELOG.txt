@@ -1,0 +1,17 @@
+///////////////////////////////////////////////////////////////////////////////
+// VERSION HISTORY:
+///////////////////////////////////////////////////////////////////////////////
+
+ - v1
+    - Course section 1: Introduction and Motivations
+        (section completed)
+    - Course section 2: Trigonometry Review
+        (section completed)
+    - Course section 3: 2D Map and Player Movement
+        - Started the simple JavaScript prototype in the folder js-prototype 
+          with a index.html, styles.css, p5.js (library for rendering), 
+          and raycast.js.
+        - Added the 2D map grid
+        - Added the player to the 2D map
+        - Added movement and collision to the player
+        (section completed)
