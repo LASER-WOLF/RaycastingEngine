@@ -6,6 +6,10 @@
 
  SECTIONS:
    #1: COURSE OVERVIEW
+   #?: WOLFENSTEIN 3D
+   #?: TRIGONOMETRY
+   #?: RAYCASTING
+   #?: JAVASCRIPT PROTOTYPE
    #?: OTHER NOTES
    #?: LINKS AND RESOURCES
 
@@ -15,7 +19,7 @@
 
    [X] #1: Introduction and Motivations
    [X] #2: Trigonometry Review
-   [-] #3: 2D Map and Player Movement
+   [X] #3: 2D Map and Player Movement
    [-] #4: Ray Casting
    [-] #5: Rendering Walls
    [-] #6: Starting our C Project
@@ -46,42 +50,15 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////
-// #? | OTHER NOTES
+// #? | WOLFENSTEIN 3D
 ///////////////////////////////////////////////////////////////////////////////
- 
- - The raycasting algorithm used in this project will try to be faithful
-   to the technique used by the Wolfenstein3D source code.
 
- - Raycasting limitations:
-    - Walls are always perpendicular (90 degree angle) with the floor.
-    - The floor is always flat.
-    - Walls are made of cubes that have the same size (square grid map).
+ - Untextured floors and ceilings
 
- - Ray-casting vs Ray-tracing:
-    Ray-casting:
-    - Rays are cast and traced in groups, column by column.
-    - In a 320x200 display resolution a ray-caster traces 320 rays
-    - Pro: Very fast
-    - Con: The resulting image is not very realistic
-    - A viable option for real-time rendering
 
-    Ray-tracing:
-    - Each ray is traced separately, so each point (usually a pixel) is traced
-      by one single ray.
-    - In a 320x200 display resolution a ray-tracer needs to trace 64.000 rays
-    - Con: Much slower
-    - Pro: The resulting image is extremely realistic
-    - Not a viable option for real-time rendering
-
- - Degrees and Radians:
-    - Degrees are a classic thing used between humans
-    - Degrees are fine for humans, but don't work that well with computers
-    - 1 radian = arc length equal to radius
-    - 3.14 (π) rad is half a circle (180°)
-    - Degrees go from 0° to 360°
-    - Radians go from 0 to 2π
-    - convert degree to radians: rad = deg * (pi / 180)
-    - convert radians to degree: deg = rad * (180 / pi)
+///////////////////////////////////////////////////////////////////////////////
+// #? | TRIGONOMETRY:
+///////////////////////////////////////////////////////////////////////////////
 
  - Trigonometry is the study of trigons (that's triangles):
 
@@ -129,10 +106,43 @@
 
       distanceAB = sqrt((B.x - A.x) * (B.x - A.x) + (B.y - A.y) * (B.y - A.y))
 
- - JS prototype:
-    - We'll use JavaScript to make a simple prototype that runs in the
-      web browser.
-    - We'll use the p5.js library for drawing geometry
+
+///////////////////////////////////////////////////////////////////////////////
+// #? | RAYCASTING
+///////////////////////////////////////////////////////////////////////////////
+
+ - The raycasting algorithm used in this project will try to be faithful
+   to the technique used by the Wolfenstein3D source code.
+
+ - Raycasting limitations:
+    - Walls are always perpendicular (90 degree angle) with the floor.
+    - The floor is always flat.
+    - Walls are made of cubes that have the same size (square grid map).
+
+ - Ray-casting vs Ray-tracing:
+    Ray-casting:
+    - Rays are cast and traced in groups, column by column.
+    - In a 320x200 display resolution a ray-caster traces 320 rays
+    - Pro: Very fast
+    - Con: The resulting image is not very realistic
+    - A viable option for real-time rendering
+
+    Ray-tracing:
+    - Each ray is traced separately, so each point (usually a pixel) is traced
+      by one single ray.
+    - In a 320x200 display resolution a ray-tracer needs to trace 64.000 rays
+    - Con: Much slower
+    - Pro: The resulting image is extremely realistic
+    - Not a viable option for real-time rendering
+
+
+///////////////////////////////////////////////////////////////////////////////
+// #? | JAVASCRIPT PROTOTYPE
+///////////////////////////////////////////////////////////////////////////////
+
+ - We'll use JavaScript to make a simple prototype that runs in the
+   web browser.
+ - We'll use the p5.js library for drawing geometry
         
         raycasting (folder)
            |
@@ -182,9 +192,131 @@
         rotationSpeed = 3 * (Math.PI / 180);
       }
 
+ - FOV & Rays:
+    - The projection plane is 320 columns by 200 rows.
+        // WINDOW_WIDTH = 320
+        // WINDOW_HEIGHT = 200
+    - We need to cast 320 rays
+    - The FOV angle is 60°
+        // FOV = 60
+    - Distance between rays (in degrees): 60 / 320
+        // rayAngleIncrement = FOV / WINDOW_WIDTH
+    - Casting the 320 rays:
+            // function castAllRays()
+        - Finding column 0: Subtract 30 (FOV/2) degrees from the player rotation angle     
+            // rayAngle = player.rotationAngle - (FOV / 2)
+        - Start at column 0, then loop through through all the columns
+            // for (column = 0; column < WINDOW_WIDTH; column++)
+        - For each column:
+            - Cast a ray
+                // var ray = new Ray(rayAngle)
+                // ray.cast(column)
+            - Trace the ray until it intersects with a wall
+                // grid.hasWallAt(rayX,rayY) == true
+            - Record the intersection (x,y) and the distance (ray length)
+            - Add the angle increment so the ray moves to the right
+                // rayAngle += rayAngleIncrement
+
+ - Finding ray hit:
+    - Check if there is collision on each intersection
+    - The best way is to check for horizontal and vertical
+      intersections separately
+    - When there is a wall on either a horizontal or a vertical intersection,
+      the checking stops
+    - The distance to both horizontal and vertical intersection point is then
+      compared, and we select the closest one
+
+ - Intersection steps:
+    - The distance in X between each of the horizontal intersections (ΔX) is
+      the same.
+    - The same is true for the distance in Y between each of the
+      horizontal intersections (ΔY)
+    - We can call this X and Y delta or intersection steps
+    - The WOLF3D source code calls these xstep and ystep
+    - The same applies for vertical intersections, they also have xstep and ystep
+
+ - Horizontal intersections:
+    - Find cordinate of the first horizontal intersection point (xintercept and yintercept)
+    - Find ystep and xstep
+    - Convert intersection point into: 
+      map index[i,j]
+        if (intersection hits):
+          then: store horizontal hit distance
+          else: find next horizontal intersection
+ 
+ - Finding the first horizontal intersection:
+    TILE_SIZE = 32   // Each tile is 32x32
+    P(Px,Py)         // Player position
+    RayAngle         // Angle from player position (origin)
+    A(Ax,Ay)         // First horizontal intersection point
+
+    Ay = Math.floor(Py / TILE_SIZE) * TILE_SIZE
+    Ax = Px + (tan(rayAngle) = (Ay-Py  / adjacent))
+    Ax = Px + (Ay-Py / tan(rayAngle))
+
+    Note: The WOLF3D source code calls the Ax "xintercept" and Ay "yintercept"
+
+ - Find the following horizontal intersections:
+    ystep = TILE_SIZE
+    xstep = ystep / tan(rayAngle)
+    
+    B(Bx,By)         // The second horizontal intersection point
+    Bx = Ax - xstep
+    By = Ay - ystep
+
+    C(Cx,Cy)         // The third horizontal intersection point
+    Cx = Bx - xstep
+    Cy = By - ystep
+
+ - Vertical intersections:
+    - Find coordinate of the first vertical intersection (point A)
+    - Find xstep and ystep
+        xstep = TILE_SIZE
+        ystep = TILE_SIZE * tan(rayAngle)
+    - Convert intersection point (x,y) into:
+      map index[i,j]
+        if (intersection hits a wall):
+          then: store vertical hit distance
+          else: find next vertical intersection
+
+ - Distance from ray to wall hit:
+    - We have just found the first intersection with the grid (point A)
+    - And we also calculated xstep and ystep
+    - All we have to do is loop incrementing xstep horizontally and ystep
+      vertically until we hit a wall (map[i][j]==1)
+    - Get both horizontal distance and vertical distance and the closest one
+      is our final distance from the ray to the wall
+
+ - This technique of finding the difference (delta) and incrementing the same
+   value every time is sometimes called "DDA algorithm".
+   DDA stands for "Digital Differential Analyzer".
+
 
 ///////////////////////////////////////////////////////////////////////////////
+// #? | OTHER NOTES
+///////////////////////////////////////////////////////////////////////////////
+
+ - Degrees and Radians:
+    - Degrees are a classic thing used between humans
+    - Degrees are fine for humans, but don't work that well with computers
+    - 1 radian = arc length equal to radius
+    - 3.14 (π) rad is half a circle (180°)
+    - Degrees go from 0° to 360°
+    - Radians go from 0 to 2π
+    - convert degree to radians: rad = deg * (pi / 180)
+    - convert radians to degree: deg = rad * (180 / pi)
+
+
+//////////////////////////////////////////////////////////////////////////////
 // #? | LINKS AND RESOURSES
 ///////////////////////////////////////////////////////////////////////////////
 
+ - Wolfenstein 3D source code: https://github.com/id-Software/wolf3d
+ - Video, Wolfenstein 3D's map renderer: https://youtu.be/eOCQfxRQ2pY
  - Peter Shirley, Ray Tracing in One Weekend
+ - Lode's Computer Graphics Tutorial: https://lodev.org/cgtutor/raycasting.html
+     The main difference between this tutorial and the original WOLF3D
+     source code is that WOLF3D uses angles to represent orientation, 
+     but lodev uses vectors to represent orientation (this approach is 
+     usually faster for computers to execute).
+

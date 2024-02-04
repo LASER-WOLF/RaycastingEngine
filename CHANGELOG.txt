@@ -2,6 +2,16 @@
 // VERSION HISTORY:
 ///////////////////////////////////////////////////////////////////////////////
 
+ - v2
+    - Course section 4: Ray Casting
+        - Added casting of rays
+          - Defining FOV
+          - FOV ray increments
+          - Finding horizontal intersections and wall hit
+          - Finding vertical intersections and wall hit
+          - Finding distance to wall hits and selecting the shortest distance
+        (section completed)
+
  - v1
     - Course section 1: Introduction and Motivations
         (section completed)
