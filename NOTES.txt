@@ -20,7 +20,7 @@
    [X] #1: Introduction and Motivations
    [X] #2: Trigonometry Review
    [X] #3: 2D Map and Player Movement
-   [-] #4: Ray Casting
+   [X] #4: Ray Casting
    [-] #5: Rendering Walls
    [-] #6: Starting our C Project
    [-] #7: Creating a Game Loop
@@ -53,7 +53,23 @@
 // #? | WOLFENSTEIN 3D
 ///////////////////////////////////////////////////////////////////////////////
 
- - Untextured floors and ceilings
+ - Released in 1992 by id Software for DOS
+ - Inspired by the stealth game Castle Wolfenstein (1981)
+ - Second major independent release by id Software (after Commander Keen)
+ - Ultima Underworld released two months prior using a similar raycasting engine 
+ - Game design by John Romero and Tom Hall
+ - Artwork by Adrian Carmack
+ - Pseudo 3D game engine programmed by John Carmack
+ - Source code was released for free in 1995
+ - The project is called WOLF3D in the source code
+ - John Carmack first made two prototype games, Hovertank 3D and Catacomb 3-D
+   before making the engine used for Wolfenstein 3D
+ - After the release of Wolfenstein most of the team started working on the
+   sequel Spear of Destiny.
+ - While most of the team worked on Spear of Destiny (1992) John Carmack was 
+   experimenting with a new graphics engine that was licenced for 
+   Shadowcaster (1993) and became the basis of the engine for id's next
+   game, Doom (1993)
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -112,7 +128,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
  - The raycasting algorithm used in this project will try to be faithful
-   to the technique used by the Wolfenstein3D source code.
+   to the technique used by the Wolfenstein 3D source code.
 
  - Raycasting limitations:
     - Walls are always perpendicular (90 degree angle) with the floor.
@@ -122,7 +138,7 @@
  - Ray-casting vs Ray-tracing:
     Ray-casting:
     - Rays are cast and traced in groups, column by column.
-    - In a 320x200 display resolution a ray-caster traces 320 rays
+    - In a 320x200 display resolution a raycaster traces 320 rays
     - Pro: Very fast
     - Con: The resulting image is not very realistic
     - A viable option for real-time rendering
@@ -130,7 +146,7 @@
     Ray-tracing:
     - Each ray is traced separately, so each point (usually a pixel) is traced
       by one single ray.
-    - In a 320x200 display resolution a ray-tracer needs to trace 64.000 rays
+    - In a 320x200 display resolution a raytracer needs to trace 64.000 rays
     - Con: Much slower
     - Pro: The resulting image is extremely realistic
     - Not a viable option for real-time rendering
@@ -291,6 +307,23 @@
    value every time is sometimes called "DDA algorithm".
    DDA stands for "Digital Differential Analyzer".
 
+ - Wall Projection:
+     distance = wallStripHeight
+     Triangle similarity
+
+     we can have two triangles, they can have the same shape, they are the same
+     triangles in different scales
+
+     if two objects have the same shape, they are called "similar".
+     when two triangles are similar, the ratios of the lengths in
+     their corresponding sides are equal.
+
+     2d world: actual wall height and distance from player to wall
+     projection plane: wall projection and distance from player to projection plane
+
+     distanceProjPlane = (WINDOW_WIDTH / 2) / Math.tan(FOV_ANGLE / 2);
+     wallStripeHeight = (TILE_SIZE / ray.distance) * (distanceProjPlane);
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // #? | OTHER NOTES
@@ -312,11 +345,15 @@
 ///////////////////////////////////////////////////////////////////////////////
 
  - Wolfenstein 3D source code: https://github.com/id-Software/wolf3d
- - Video, Wolfenstein 3D's map renderer: https://youtu.be/eOCQfxRQ2pY
- - Peter Shirley, Ray Tracing in One Weekend
+
+ - Wolfenstein 3D's map renderer: https://youtu.be/eOCQfxRQ2pY
+ 
  - Lode's Computer Graphics Tutorial: https://lodev.org/cgtutor/raycasting.html
      The main difference between this tutorial and the original WOLF3D
      source code is that WOLF3D uses angles to represent orientation, 
      but lodev uses vectors to represent orientation (this approach is 
      usually faster for computers to execute).
+ 
+ - Peter Shirley, Ray Tracing in One Weekend
+
 
