@@ -2,6 +2,11 @@
 // VERSION HISTORY:
 ///////////////////////////////////////////////////////////////////////////////
 
+ - v5
+    - Course section 7: Creating a Game Loop
+        - Implemented a fixed time step game loop
+        (section completed)
+
  - v4
     - Course section 6: Starting our C Project
         - Set up of the project in C with SDL
