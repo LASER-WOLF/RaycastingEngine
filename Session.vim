@@ -6,19 +6,13 @@ imap <Nul> <C-Space>
 inoremap <expr> <Up> pumvisible() ? "\" : "\<Up>"
 inoremap <expr> <S-Tab> pumvisible() ? "\" : "\<S-Tab>"
 inoremap <expr> <Down> pumvisible() ? "\" : "\<Down>"
-map  o
 nnoremap \d :YcmShowDetailedDiagnostic
 xmap gx <Plug>NetrwBrowseXVis
 nmap gx <Plug>NetrwBrowseX
-nnoremap tl :tablast
-nnoremap tj :tabprev
-nnoremap tk :tabnext
-nnoremap th :tabfirst
 nnoremap <silent> <Plug>(YCMFindSymbolInDocument) :call youcompleteme#finder#FindSymbol( 'document' )
 nnoremap <silent> <Plug>(YCMFindSymbolInWorkspace) :call youcompleteme#finder#FindSymbol( 'workspace' )
 xnoremap <silent> <Plug>NetrwBrowseXVis :call netrw#BrowseXVis()
 nnoremap <silent> <Plug>NetrwBrowseX :call netrw#BrowseX(netrw#GX(),netrw#CheckIfRemote(netrw#GX()))
-map <S-CR> O
 inoremap <expr> 	 pumvisible() ? "\" : "\	"
 let &cpo=s:cpo_save
 unlet s:cpo_save
@@ -35,14 +29,18 @@ set helplang=en
 set incsearch
 set laststatus=2
 set ruler
-set runtimepath=~/.vim,~/.vim/bundle/Vundle.vim,~/.vim/bundle/YouCompleteMe,~/.vim/bundle/vim-lastplace,/usr/share/vim/vimfiles,/usr/share/vim/vim91,/usr/share/vim/vimfiles/after,~/.vim/after,~/.vim/bundle/Vundle.vim,~/.vim/bundle/Vundle.vim/after,~/.vim/bundle/YouCompleteMe/after,~/.vim/bundle/vim-lastplace/after
+set runtimepath=~/.vim,~/.vim/plugged/vim-lastplace,~/.vim/plugged/lightline.vim,~/.vim/plugged/YouCompleteMe,/usr/share/vim/vimfiles,/usr/share/vim/vim91,/usr/share/vim/vimfiles/after,~/.vim/after
 set shiftwidth=4
 set shortmess=filnxtToOSc
-set statusline=%<%F\ %h%m%r%=%-14.(%l,%c%V%)\ %P
-set suffixes=.bak,~,.o,.info,.swp,.aux,.bbl,.blg,.brf,.cb,.dvi,.idx,.ilg,.ind,.inx,.jpg,.log,.out,.png,.toc,.snap
+set noshowmode
+set suffixes=.bak,~,.o,.info,.swp,.aux,.bbl,.blg,.brf,.cb,.dvi,.idx,.ilg,.ind,.inx,.jpg,.log,.out,.png,.toc
+set tabline=%!lightline#tabline()
 set tabstop=4
+set ttimeoutlen=50
 set undodir=~/.cache/vim/undo//
 set undofile
+set updatetime=300
+set nowritebackup
 let s:so_save = &g:so | let s:siso_save = &g:siso | setg so=0 siso=0 | setl so=-1 siso=-1
 let v:this_session=expand("<sfile>:p")
 silent only
@@ -56,16 +54,13 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +91 NOTES.txt
-badd +0 js-prototype/raycast.js
-badd +1 js-prototype/index.html
-badd +1 ~/downloads/raycasting/raycasting/raycast.js
-badd +17 CHANGELOG.txt
-badd +52 ~/downloads/raycasting-200829-044052/raycasting/raycast.js
+badd +60 raycasting-c/src/main.c
+badd +97 NOTES.txt
+badd +0 CHANGELOG.txt
 argglobal
 %argdel
-$argadd NOTES.txt
-edit js-prototype/raycast.js
+$argadd raycasting-c/src/main.c
+edit raycasting-c/src/main.c
 let s:save_splitbelow = &splitbelow
 let s:save_splitright = &splitright
 set splitbelow splitright
@@ -86,13 +81,12 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe 'vert 1resize ' . ((&columns * 102 + 105) / 211)
-exe '2resize ' . ((&lines * 35 + 36) / 72)
-exe 'vert 2resize ' . ((&columns * 108 + 105) / 211)
-exe '3resize ' . ((&lines * 34 + 36) / 72)
-exe 'vert 3resize ' . ((&columns * 108 + 105) / 211)
+exe 'vert 1resize ' . ((&columns * 105 + 105) / 211)
+exe '2resize ' . ((&lines * 41 + 36) / 72)
+exe 'vert 2resize ' . ((&columns * 105 + 105) / 211)
+exe '3resize ' . ((&lines * 28 + 36) / 72)
+exe 'vert 3resize ' . ((&columns * 105 + 105) / 211)
 argglobal
-balt NOTES.txt
 setlocal keymap=
 setlocal noarabic
 setlocal autoindent
@@ -104,14 +98,14 @@ setlocal breakindentopt=
 setlocal bufhidden=
 setlocal buflisted
 setlocal buftype=
-setlocal nocindent
+setlocal cindent
 setlocal cinkeys=0{,0},0),0],:,0#,!^F,o,O,e
 setlocal cinoptions=
 setlocal cinscopedecls=public,protected,private
 setlocal cinwords=if,else,while,do,for,switch
 setlocal colorcolumn=
-setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://
-setlocal commentstring=//%s
+setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,:///,://
+setlocal commentstring=/*%s*/
 setlocal complete=.,w,b,u,t,i
 setlocal completefunc=
 setlocal concealcursor=
@@ -122,14 +116,14 @@ setlocal nocursorbind
 setlocal nocursorcolumn
 setlocal nocursorline
 setlocal cursorlineopt=both
-setlocal define=\\(^\\s*(*async\\s\\+function\\|(*function\\)\\|^\\s*\\(\\*\\|static\\|async\\|get\\|set\\|\\i\\+\\.\\)\\|^\\s*\\(\\ze\\i\\+\\)\\(([^)]*).*{$\\|\\s*[:=,]\\)\\|^\\s*\\(export\\s\\+\\|export\\s\\+default\\s\\+\\)*\\(var\\|let\\|const\\|function\\|class\\)\\|\\<as\\>
+setlocal define=^\\s*#\\s*define
 setlocal dictionary=
 setlocal nodiff
 setlocal equalprg=
 setlocal errorformat=
 setlocal expandtab
-if &filetype != 'javascript'
-setlocal filetype=javascript
+if &filetype != 'c'
+setlocal filetype=c
 endif
 setlocal fillchars=
 setlocal fixendofline
@@ -150,10 +144,10 @@ setlocal formatprg=
 setlocal grepprg=
 setlocal iminsert=0
 setlocal imsearch=-1
-setlocal include=
+setlocal include=^\\s*#\\s*include
 setlocal includeexpr=
-setlocal indentexpr=GetJavascriptIndent()
-setlocal indentkeys=0{,0},0),0],:,0#,!^F,o,O,e,0],0)
+setlocal indentexpr=
+setlocal indentkeys=0{,0},0),0],:,0#,!^F,o,O,e
 setlocal noinfercase
 setlocal iskeyword=@,48-57,_,192-255
 setlocal keywordprg=
@@ -172,8 +166,8 @@ setlocal nrformats=bin,octal,hex
 set number
 setlocal number
 setlocal numberwidth=4
-setlocal omnifunc=javascriptcomplete#CompleteJS
-setlocal path=.,,
+setlocal omnifunc=ccomplete#Complete
+setlocal path=
 setlocal nopreserveindent
 setlocal nopreviewwindow
 setlocal quoteescape=\\
@@ -187,7 +181,8 @@ setlocal shiftwidth=4
 setlocal noshortname
 setlocal showbreak=
 setlocal sidescrolloff=-1
-setlocal signcolumn=auto
+set signcolumn=yes
+setlocal signcolumn=yes
 setlocal nosmartindent
 setlocal nosmoothscroll
 setlocal softtabstop=0
@@ -196,12 +191,12 @@ setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
 setlocal spellfile=
 setlocal spelllang=en
 setlocal spelloptions=
-setlocal statusline=
-setlocal suffixesadd=.js,.jsx,.es,.es6,.cjs,.mjs,.jsm,.vue,.json
+setlocal statusline=%{lightline#link()}%#LightlineLeft_active_0#%(\ %{lightline#mode()}\ %)%{(&paste)?\"|\":\"\"}%(\ %{&paste?\"PASTE\":\"\"}\ %)%#LightlineLeft_active_0_1#%#LightlineLeft_active_1#%(\ %R\ %)%{(&readonly)&&(1||(&modified||!&modifiable))?\"|\":\"\"}%(\ %t\ %)%{(&modified||!&modifiable)?\"|\":\"\"}%(\ %M\ %)%#LightlineLeft_active_1_2#%#LightlineMiddle_active#%=%#LightlineRight_active_2_3#%#LightlineRight_active_2#%(\ %{&ff}\ %)%{1||1?\"|\":\"\"}%(\ %{&fenc!=#\"\"?&fenc:&enc}\ %)%{1?\"|\":\"\"}%(\ %{&ft!=#\"\"?&ft:\"no\ ft\"}\ %)%#LightlineRight_active_1_2#%#LightlineRight_active_1#%(\ %3p%%\ %)%#LightlineRight_active_0_1#%#LightlineRight_active_0#%(\ %3l:%-2c\ %)
+setlocal suffixesadd=
 setlocal swapfile
 setlocal synmaxcol=3000
-if &syntax != 'javascript'
-setlocal syntax=javascript
+if &syntax != 'c'
+setlocal syntax=c
 endif
 setlocal tabstop=4
 setlocal tagcase=
@@ -226,16 +221,16 @@ setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 63 - ((37 * winheight(0) + 35) / 70)
+let s:l = 60 - ((42 * winheight(0) + 35) / 70)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 63
-normal! 0
+keepjumps 60
+normal! 09|
 wincmd w
 argglobal
 if bufexists(fnamemodify("NOTES.txt", ":p")) | buffer NOTES.txt | else | edit NOTES.txt | endif
-balt CHANGELOG.txt
+balt raycasting-c/src/main.c
 setlocal keymap=
 setlocal noarabic
 setlocal autoindent
@@ -330,7 +325,8 @@ setlocal shiftwidth=4
 setlocal noshortname
 setlocal showbreak=
 setlocal sidescrolloff=-1
-setlocal signcolumn=auto
+set signcolumn=yes
+setlocal signcolumn=yes
 setlocal nosmartindent
 setlocal nosmoothscroll
 setlocal softtabstop=0
@@ -339,7 +335,7 @@ setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
 setlocal spellfile=
 setlocal spelllang=en
 setlocal spelloptions=
-setlocal statusline=
+setlocal statusline=%{lightline#link()}%#LightlineLeft_inactive_0#%(\ %t\ %)%#LightlineLeft_inactive_0_1#%#LightlineMiddle_inactive#%=%#LightlineRight_inactive_1_2#%#LightlineRight_inactive_1#%(\ %3p%%\ %)%#LightlineRight_inactive_0_1#%#LightlineRight_inactive_0#%(\ %3l:%-2c\ %)
 setlocal suffixesadd=
 setlocal swapfile
 setlocal synmaxcol=3000
@@ -369,11 +365,11 @@ setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 91 - ((3 * winheight(0) + 17) / 35)
+let s:l = 97 - ((20 * winheight(0) + 20) / 41)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 91
+keepjumps 97
 normal! 05|
 wincmd w
 argglobal
@@ -473,7 +469,8 @@ setlocal shiftwidth=4
 setlocal noshortname
 setlocal showbreak=
 setlocal sidescrolloff=-1
-setlocal signcolumn=auto
+set signcolumn=yes
+setlocal signcolumn=yes
 setlocal nosmartindent
 setlocal nosmoothscroll
 setlocal softtabstop=0
@@ -482,7 +479,7 @@ setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
 setlocal spellfile=
 setlocal spelllang=en
 setlocal spelloptions=
-setlocal statusline=
+setlocal statusline=%{lightline#link()}%#LightlineLeft_inactive_0#%(\ %t\ %)%#LightlineLeft_inactive_0_1#%#LightlineMiddle_inactive#%=%#LightlineRight_inactive_1_2#%#LightlineRight_inactive_1#%(\ %3p%%\ %)%#LightlineRight_inactive_0_1#%#LightlineRight_inactive_0#%(\ %3l:%-2c\ %)
 setlocal suffixesadd=
 setlocal swapfile
 setlocal synmaxcol=3000
@@ -512,18 +509,18 @@ setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 5 - ((4 * winheight(0) + 17) / 34)
+let s:l = 6 - ((4 * winheight(0) + 14) / 28)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 5
+keepjumps 6
 normal! 05|
 wincmd w
-exe 'vert 1resize ' . ((&columns * 102 + 105) / 211)
-exe '2resize ' . ((&lines * 35 + 36) / 72)
-exe 'vert 2resize ' . ((&columns * 108 + 105) / 211)
-exe '3resize ' . ((&lines * 34 + 36) / 72)
-exe 'vert 3resize ' . ((&columns * 108 + 105) / 211)
+exe 'vert 1resize ' . ((&columns * 105 + 105) / 211)
+exe '2resize ' . ((&lines * 41 + 36) / 72)
+exe 'vert 2resize ' . ((&columns * 105 + 105) / 211)
+exe '3resize ' . ((&lines * 28 + 36) / 72)
+exe 'vert 3resize ' . ((&columns * 105 + 105) / 211)
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0
   silent exe 'bwipe ' . s:wipebuf

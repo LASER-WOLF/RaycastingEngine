@@ -2,6 +2,11 @@
 // VERSION HISTORY:
 ///////////////////////////////////////////////////////////////////////////////
 
+ - v4
+    - Course section 6: Starting our C Project
+        - Set up of the project in C with SDL
+        (section completed)
+
  - v3
     - Course section 5: Rendering walls
         - Shrunk the 2D map down to 0.2 size to act as a minimap in 
