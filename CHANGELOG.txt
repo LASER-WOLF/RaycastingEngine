@@ -2,6 +2,12 @@
 // VERSION HISTORY:
 ///////////////////////////////////////////////////////////////////////////////
 
+ - v7
+    - Course section 9: Casting Rays in our C Project
+        - Added ray casting code
+        - Added rendering of the cast rays
+        (section completed)
+
  - v6
     - Course section 8: Map and Player Movement
         - Added the map and drawing of the map
