@@ -2,6 +2,11 @@
 // VERSION HISTORY:
 ///////////////////////////////////////////////////////////////////////////////
 
+ - v8
+    - Course section 10: Color Buffer
+        - Added color buffer
+        (section completed)
+
  - v7
     - Course section 9: Casting Rays in our C Project
         - Added ray casting code
