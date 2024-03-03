@@ -6,12 +6,12 @@
 
  SECTIONS:
    #1: COURSE OVERVIEW
-   #?: WOLFENSTEIN 3D
-   #?: TRIGONOMETRY
-   #?: RAYCASTING
-   #?: JAVASCRIPT PROTOTYPE
-   #?: OTHER NOTES
-   #?: LINKS AND RESOURCES
+   #2: WOLFENSTEIN 3D
+   #3: TRIGONOMETRY
+   #4: RAYCASTING
+   #5: JAVASCRIPT PROTOTYPE
+   #6: OTHER NOTES
+   #7: LINKS AND RESOURCES
 
 ///////////////////////////////////////////////////////////////////////////////
 // #1 | COURSE OVERVIEW:
@@ -21,13 +21,13 @@
    [X] #2: Trigonometry Review
    [X] #3: 2D Map and Player Movement
    [X] #4: Ray Casting
-   [-] #5: Rendering Walls
-   [-] #6: Starting our C Project
-   [-] #7: Creating a Game Loop
-   [-] #8: Map and Player Movement
-   [-] #9: Casting Rays in our C Project
-   [-] #10: Color Buffer
-   [-] #11: Wall Projection
+   [X] #5: Rendering Walls
+   [X] #6: Starting our C Project
+   [X] #7: Creating a Game Loop
+   [X] #8: Map and Player Movement
+   [X] #9: Casting Rays in our C Project
+   [X] #10: Color Buffer
+   [X] #11: Wall Projection
    [-] #12: Wall Textures
    [-] #13: Fixing the Angle Increment Distortion
    [-] #14: Refactoring Project Files
@@ -46,11 +46,11 @@
     - Coding the 2D view of our ray-casting
     - Coding the 3D projection view
     - Simple JavaScript prototype
-    - Final implementation in C with textures
+    - Final implementation in C with textured walls and sprites
 
 
 ///////////////////////////////////////////////////////////////////////////////
-// #? | WOLFENSTEIN 3D
+// #2 | WOLFENSTEIN 3D
 ///////////////////////////////////////////////////////////////////////////////
 
  - Released in 1992 by id Software for DOS
@@ -73,7 +73,7 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////
-// #? | TRIGONOMETRY:
+// #3 | TRIGONOMETRY:
 ///////////////////////////////////////////////////////////////////////////////
 
  - Trigonometry is the study of trigons (that's triangles):
@@ -124,7 +124,7 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////
-// #? | RAYCASTING
+// #4 | RAYCASTING
 ///////////////////////////////////////////////////////////////////////////////
 
  - The raycasting algorithm used in this project will try to be faithful
@@ -153,7 +153,7 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////
-// #? | JAVASCRIPT PROTOTYPE
+// #5 | JAVASCRIPT PROTOTYPE
 ///////////////////////////////////////////////////////////////////////////////
 
  - We'll use JavaScript to make a simple prototype that runs in the
@@ -326,7 +326,7 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////
-// #? | OTHER NOTES
+// #6 | OTHER NOTES
 ///////////////////////////////////////////////////////////////////////////////
 
  - Degrees and Radians:
@@ -341,7 +341,7 @@
 
 
 //////////////////////////////////////////////////////////////////////////////
-// #? | LINKS AND RESOURSES
+// #7 | LINKS AND RESOURSES
 ///////////////////////////////////////////////////////////////////////////////
 
  - Wolfenstein 3D source code: https://github.com/id-Software/wolf3d

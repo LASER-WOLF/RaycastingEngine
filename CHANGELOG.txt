@@ -2,6 +2,11 @@
 // VERSION HISTORY:
 ///////////////////////////////////////////////////////////////////////////////
 
+ - v10
+    - Course section 12: Wall textures
+        - Added textures for the walls
+        (section completed)
+
  - v9
     - Course section 11: Wall projection
         - Added wall projection
