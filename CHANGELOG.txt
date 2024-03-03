@@ -2,6 +2,12 @@
 // VERSION HISTORY:
 ///////////////////////////////////////////////////////////////////////////////
 
+ - v9
+    - Course section 11: Wall projection
+        - Added wall projection
+        - Added colors to ceiling and floor
+        (section completed)
+
  - v8
     - Course section 10: Color Buffer
         - Added color buffer

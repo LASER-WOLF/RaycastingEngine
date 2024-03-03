@@ -380,6 +380,38 @@ void update() {
     castAllRays();
 }
 
+void generate3DProjection() {
+    for (int i = 0; i < NUM_RAYS; i++) {
+        float perpDistance = rays[i].distance * cos(rays[i].rayAngle - player.rotationAngle);
+        float distanceProjPlane = (WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2);
+        float projectedWallHeight = (TILE_SIZE / perpDistance) * distanceProjPlane;
+        int wallStripHeight = projectedWallHeight;
+
+        int wallTopPixel = (WINDOW_HEIGHT / 2) - (wallStripHeight / 2);
+        wallTopPixel = wallTopPixel < 0 ? 0 : wallTopPixel;
+
+        int wallBottomPixel = (WINDOW_HEIGHT / 2) + (wallStripHeight / 2);
+        wallBottomPixel = wallBottomPixel > WINDOW_HEIGHT ? WINDOW_HEIGHT : wallBottomPixel;
+
+
+        // render the ceiling
+        for (int y = 0; y < wallTopPixel; y++) {
+            colorBuffer[(WINDOW_WIDTH * y) + i] = 0xFF333333;
+        }
+
+        // render the wall from wallTopPixel to wallBottomPixel
+        for (int y = wallTopPixel; y < wallBottomPixel; y++) {
+            colorBuffer[(WINDOW_WIDTH * y) + i] = rays[i].wasHitVertical ? 0xFFFFFFFF : 0xFFCCCCCC;
+        }
+
+        // render the floor
+        for (int y = wallBottomPixel; y < WINDOW_HEIGHT; y++) {
+            colorBuffer[(WINDOW_WIDTH * y) + i] = 0xFF777777;
+        }
+
+    }
+}
+
 void clearColorBuffer(Uint32 color) {
     for (int x = 0; x < WINDOW_WIDTH; x++)
         for (int y = 0; y < WINDOW_HEIGHT; y++)
@@ -400,8 +432,9 @@ void render() {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
 
-    renderColorBuffer();
+    generate3DProjection();
 
+    renderColorBuffer(); 
     // set all color buffer values to black
     clearColorBuffer(0xFF000000);
 
