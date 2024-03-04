@@ -2,6 +2,20 @@
 // VERSION HISTORY:
 ///////////////////////////////////////////////////////////////////////////////
 
+ - v12
+    - Course section 13: Refactoring Project Files
+        - Implemented the built-in C bool support from <stdbool.h>
+        - Changed window size constants and seperated render resolution
+          from display resolution (rendering at lower resolution and 
+          displaying full screen)
+        - Separated the main file into multiple .h/.c files:
+            - graphics
+            - map
+            - player
+        - Added drawRect() function for drawing a rectangle using
+          the color buffer
+        (section completed)
+
  - v11
     - Course section 13: Fixing the Angle Increment Distortion
         (section completed)
