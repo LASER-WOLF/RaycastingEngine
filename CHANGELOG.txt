@@ -2,6 +2,10 @@
 // VERSION HISTORY:
 ///////////////////////////////////////////////////////////////////////////////
 
+ - v11
+    - Course section 13: Fixing the Angle Increment Distortion
+        (section completed)
+
  - v10
     - Course section 12: Wall textures
         - Added textures for the walls

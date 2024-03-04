@@ -1,6 +1,8 @@
 #include "textures.h"
 #include <stdio.h>
 
+texture_t wallTextures[NUM_TEXTURES];
+
 static const char* textureFileNames[NUM_TEXTURES] = {
     "./images/redbrick.png",
     "./images/purplestone.png",
@@ -29,6 +31,10 @@ void loadWallTextures() {
         }
     }
 
+}
+
+texture_t getWallTexture(int textureIndex) {
+    return wallTextures[textureIndex];
 }
 
 void freeWallTextures() {
