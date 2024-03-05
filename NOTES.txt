@@ -28,13 +28,13 @@
    [X] #9: Casting Rays in our C Project
    [X] #10: Color Buffer
    [X] #11: Wall Projection
-   [-] #12: Wall Textures
-   [-] #13: Fixing the Angle Increment Distortion
-   [-] #14: Refactoring Project Files
-   [-] #15: Rendering Lines
-   [-] #16: Refactoring Our Code
-   [-] #17: Sprites
-   [-] #18: Conclusion & Moving Forward
+   [X] #12: Wall Textures
+   [X] #13: Fixing the Angle Increment Distortion
+   [X] #14: Refactoring Project Files
+   [X] #15: Rendering Lines
+   [X] #16: Refactoring Our Code
+   [X] #17: Sprites
+   [X] #18: Conclusion & Moving Forward
   
    [X] COMPLETED / [-] NOT COMPLETED
 
@@ -338,7 +338,13 @@
     - Radians go from 0 to 2π
     - convert degree to radians: rad = deg * (pi / 180)
     - convert radians to degree: deg = rad * (180 / pi)
-
+ - Other things that can be added to the project:
+    - Animated sprites (by offsetting the sprite texture with multiple
+      animation frames in a single texture)
+    - Strafing and mouse controls
+    - Doors
+    - Bigger level
+    - NPCs with AI
 
 //////////////////////////////////////////////////////////////////////////////
 // #7 | LINKS AND RESOURSES
@@ -347,7 +353,9 @@
  - Wolfenstein 3D source code: https://github.com/id-Software/wolf3d
 
  - Wolfenstein 3D's map renderer: https://youtu.be/eOCQfxRQ2pY
- 
+
+ - Fabien Sanglard, Game Engine Black Book: Wolfenstein 3D
+
  - Lode's Computer Graphics Tutorial: https://lodev.org/cgtutor/raycasting.html
      The main difference between this tutorial and the original WOLF3D
      source code is that WOLF3D uses angles to represent orientation, 

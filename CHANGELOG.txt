@@ -2,6 +2,21 @@
 // VERSION HISTORY:
 ///////////////////////////////////////////////////////////////////////////////
 
+ - v15
+    - Course section 16: Sprites
+        - Added sprite.h/sprite.h
+        - Added sprite_t type
+        - Added rendering of sprites in the minimap
+        - Added check to see if sprites are visible (within the FOV)
+        - Added rendering of visible sprites
+        - Added simple bubble-sort to sort the sprites by distance from player
+        - Added "z-buffer"-like check to only render sprite pixels that
+          are not behind a wall
+        - Added fix for sprite "fishbowl" distortion
+        (section completed)
+    - Course section 17: Conclusion & Moving forward
+        (section completed)
+
  - v14
     - Course section 15: Refactoring our Code
         - Separated wall projection from main.c into wall.h/wall.c files

@@ -5,16 +5,11 @@
 #include "defs.h"
 #include "upng.h"
 
-typedef struct {
-    upng_t* upngTexture;
-    int width;
-    int height;
-    color_t* texture_buffer;
-} texture_t;
+#define NUM_TEXTURES 14
 
-texture_t getWallTexture(int textureIndex);
+upng_t* getTexture(int textureIndex);
 
-void loadWallTextures();
-void freeWallTextures();
+void loadTextures();
+void freeTextures();
 
 #endif
