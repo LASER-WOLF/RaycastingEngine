@@ -2,6 +2,18 @@
 // VERSION HISTORY:
 ///////////////////////////////////////////////////////////////////////////////
 
+ - v14
+    - Course section 15: Refactoring our Code
+        - Separated wall projection from main.c into wall.h/wall.c files
+        - Created color_t type definition (same as uint32_t) for better
+          readability
+        - Refactored normalizeAngle() to modify the parameter by reference
+        - Refactored the ray-facing direction variables as functions
+        - Added function to modify intensity of color and implemented it
+          in the wall projection rendering to darken the vertically facing
+          walls
+        (section completed)
+
  - v13
     - Course section 14: Rendering Lines
         - Added line drawing function using DDA
