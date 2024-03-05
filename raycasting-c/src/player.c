@@ -34,4 +34,11 @@ void renderPlayer() {
         player.height * MINIMAP_SCALE_FACTOR,
         0xFFFFFFFF
     );
+    drawLine(
+        player.x * MINIMAP_SCALE_FACTOR,
+        player.y * MINIMAP_SCALE_FACTOR,
+        MINIMAP_SCALE_FACTOR * (player.x + cos(player.rotationAngle) * 40),
+        MINIMAP_SCALE_FACTOR * (player.y + sin(player.rotationAngle) * 40),
+        0xFFFFFFFF
+    );
 }

@@ -2,6 +2,11 @@
 // VERSION HISTORY:
 ///////////////////////////////////////////////////////////////////////////////
 
+ - v13
+    - Course section 14: Rendering Lines
+        - Added line drawing function using DDA
+        (section completed)
+
  - v12
     - Course section 13: Refactoring Project Files
         - Implemented the built-in C bool support from <stdbool.h>

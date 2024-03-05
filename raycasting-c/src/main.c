@@ -116,7 +116,7 @@ void render() {
     clearColorBuffer(0xFF000000);
     renderWallProjection();
     renderMap();
-    //renderRays();
+    renderRays();
     renderPlayer();
     renderColorBuffer();
 }
